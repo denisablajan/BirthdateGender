@@ -15,7 +15,7 @@ namespace BirthdateGender
             int age = GetAge(birthdate);
             Console.WriteLine("If your birthdate is " + birthdate.ToString("dd-MM-yyyy") + " you are " + age + " years old.");
 
-            Console.WriteLine("Enter the first letter of your gender: ");
+            Console.Write("Enter the first letter of your gender (F/M): ");
             GenderCheck(age);
         }
 
@@ -29,23 +29,23 @@ namespace BirthdateGender
         static DateTime ReadBirthDate()
         {
 
-            Console.WriteLine("Day: ");
+            Console.Write("Day: ");
             int day = int.Parse(Console.ReadLine());
-            Console.WriteLine("Month: ");
+            Console.Write("Month: ");
             int month = int.Parse(Console.ReadLine());
-            Console.WriteLine("Year: ");
+            Console.Write("Year: ");
             int year = int.Parse(Console.ReadLine());
 
             if (!IsValid(day, month, year))
             {
                 do
                 {
-                    Console.WriteLine("Invalid date. Try again.");
+                    Console.Write("Invalid date. Try again.");
                     Console.WriteLine("Day: ");
                     day = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Month: ");
+                    Console.Write("Month: ");
                     month = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Year: ");
+                    Console.Write("Year: ");
                     year = int.Parse(Console.ReadLine());
                 } while (!IsValid(day, month, year));
             }
@@ -82,7 +82,7 @@ namespace BirthdateGender
         }
         static bool ValidGender(char genderInput)
         {
-            if ((genderInput != 'F') && (genderInput != 'f') && (genderInput != 'M') && (genderInput != 'm'))
+            if ((genderInput != 'F')  && (genderInput != 'M'))
                 return false;
             return true;
         }
@@ -101,19 +101,20 @@ namespace BirthdateGender
                 } while (!ValidGender(genderInput));
             }
 
-            if (genderInput == 'F' || genderInput == 'f')
+            switch(genderInput)
             {
-                genderOutput = Gender.Female;
-                if (age <= 60)
-                    Console.WriteLine("You will retire at age 60.");
-                else Console.WriteLine("You are retired.");
-            }
-            else if (genderInput == 'M' || genderInput == 'm')
-            {
-                genderOutput = Gender.Male;
-                if (age <= 65)
-                    Console.WriteLine("You will retire at age 65.");
-                else Console.WriteLine("You are retired.");
+                case 'F':
+                    genderOutput = Gender.Female;
+                    if (age <= 60)
+                        Console.WriteLine("You will retire at age 60.");
+                    else Console.WriteLine("You are retired.");
+                    break;
+                case 'M':
+                    genderOutput = Gender.Male;
+                    if (age <= 65)
+                        Console.WriteLine("You will retire at age 65.");
+                    else Console.WriteLine("You are retired.");
+                    break;
             }
         }
         public enum Gender { Female, Male }
